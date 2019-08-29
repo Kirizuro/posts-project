@@ -27,14 +27,6 @@ export default {
     AppTemplate
   },
 
-  data() {
-    return {
-      post: {},
-      postTitle: null,
-      postBody: null
-    };
-  },
-
   computed: {
     postId() {
       return this.$router.currentRoute.params.id;
@@ -51,7 +43,7 @@ export default {
         const pos = await axios.get(
           `https://jsonplaceholder.typicode.com/posts/${this.postId}`
         );
-        this.post = pos.data;
+        return (this.post = pos);
       } catch (error) {
         return error;
       }
