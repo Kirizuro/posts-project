@@ -29,6 +29,7 @@ export default {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/posts"
     );
+    // console.log(response.data);
     this.posts = response.data;
   }
 };

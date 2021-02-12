@@ -1,12 +1,9 @@
 <template>
   <v-container>
     <v-content>
-      <v-flex wrap text-center>
-        <router-link to="/">
-          <v-btn class="btn" color="primary" dark>Home</v-btn>
-        </router-link>
-        <router-link to="/post/create">
-          <v-btn class="btn" color="secondary" dark>Criar novo Post</v-btn>
+      <v-flex class="pt-4" wrap text-center>
+        <router-link to="create">
+          <v-btn color="secondary" dark>Criar novo Post</v-btn>
         </router-link>
       </v-flex>
     </v-content>
@@ -15,7 +12,7 @@
 
 <script>
 export default {
-  name: "PostActions"
+  name: 'PostActions'
 };
 </script>
 

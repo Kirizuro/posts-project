@@ -1,38 +1,64 @@
 <template>
   <AppTemplate>
-    <v-container wrap text-center>
-      <v-layout>
-        <v-flex lg6>
-          <v-input v-model="postTitle" :value="post.title" />
+    <v-content>
+      <v-card class="ma-4 pa-7" wrap align-center>
+        <v-flex lg4 sm12>
+          <v-text-field
+            name="titulo"
+            label="Titulo"
+            :value="post.title"
+            :loading="loaded"
+            readonly
+          >
+          </v-text-field>
         </v-flex>
-        <h3>tes</h3>
-        {{ postId }}
-        <v-flex lg6>
-          <v-input v-model="postBody" :value="post.body" />
+        <v-flex sm12>
+          <v-text-field
+            name="body"
+            label="Corpo"
+            :value="post.body"
+            :loading="loaded"
+            readonly
+            textarea
+            height="50"
+          >
+          </v-text-field>
         </v-flex>
-        <v-btn @click="deletePost()" color="delete"></v-btn>
-      </v-layout>
-    </v-container>
+      </v-card>
+
+      <v-btn color="blue" dark @click="back()">Voltar</v-btn>
+      <!-- <v-btn @click="deletePost()" color="delete"></v-btn> -->
+    </v-content>
   </AppTemplate>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
-import AppTemplate from "@/components/AppTemplate.vue";
+import AppTemplate from '@/components/AppTemplate.vue';
 
 export default {
-  name: "Details",
+  name: 'Details',
   components: {
     AppTemplate
   },
 
-  computed: {
-    postId() {
-      return this.$router.currentRoute.params.id;
-    }
+  data() {
+    return {
+      postId: this.$router.currentRoute.params.id,
+      post: {
+        title: '',
+        body: ''
+      },
+      loaded: true
+    };
   },
+
   methods: {
+    back() {
+      this.$router.go(-1);
+    },
+
     deletePost() {
       axios.delete(`https://jsonplaceholder.typicode.com/posts/${this.postId}`);
       this.$router.go(-1);
@@ -40,14 +66,24 @@ export default {
 
     async getPost() {
       try {
-        const pos = await axios.get(
+        const post = await axios.get(
           `https://jsonplaceholder.typicode.com/posts/${this.postId}`
         );
-        return (this.post = pos);
+
+        const { title, body } = post.data;
+        this.post = {
+          title: title,
+          body: body
+        };
+        this.loaded = false;
       } catch (error) {
         return error;
       }
     }
+  },
+
+  created() {
+    this.getPost();
   }
 };
 </script>
