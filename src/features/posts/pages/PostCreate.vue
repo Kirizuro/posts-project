@@ -21,7 +21,14 @@
         </v-flex>
       </v-card>
 
-      <v-btn @click="back()" class="mr-2" color="blue" dark>Voltar</v-btn>
+      <v-btn
+        @click="back()"
+        @disabled="this.loading"
+        class="mr-2"
+        color="blue"
+        dark
+        >Voltar</v-btn
+      >
       <v-btn @click="createPost()" color="success">Criar</v-btn>
     </v-content>
   </AppTemplate>
@@ -29,6 +36,7 @@
 
 <script>
 import AppTemplate from '@/components/AppTemplate.vue';
+import axios from 'axios';
 
 export default {
   name: 'Create',
@@ -40,7 +48,8 @@ export default {
   data() {
     return {
       title: '',
-      body: ''
+      body: '',
+      loading: true
     };
   },
 
@@ -49,7 +58,17 @@ export default {
       this.$router.go(-1);
     },
 
-    async createPost() {}
+    async createPost() {
+      if (!this.title || !this.body) alert('Preencha todos os dados!');
+      try {
+        const data = { title: this.title, body: this.body };
+        await axios.post('https://jsonplaceholder.typicode.com/posts', data);
+      } catch (error) {
+        throw error;
+      }
+
+      this.$router.go(-1);
+    }
   }
 };
 </script>

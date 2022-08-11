@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import Actions from "../components/Actions";
-import List from "../components/List";
-import AppTemplate from "@/components/AppTemplate";
+import Actions from '../components/Actions';
+import List from '../components/List';
+import AppTemplate from '@/components/AppTemplate';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     Actions,
     List,

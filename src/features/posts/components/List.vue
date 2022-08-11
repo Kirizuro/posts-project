@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "PostList",
+  name: 'PostList',
   data() {
     return {
       posts: [],
@@ -27,7 +27,7 @@ export default {
 
   async created() {
     const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
+      'https://jsonplaceholder.typicode.com/posts'
     );
     // console.log(response.data);
     this.posts = response.data;
